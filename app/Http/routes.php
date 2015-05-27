@@ -14,6 +14,10 @@ Route::get('category/{category}', function(\CodeCommerce\Category $category){
 	dd($category);
 });
 
+Route::get('product/{product}', function(\CodeCommerce\Product $product){
+	dd($product);
+});
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
