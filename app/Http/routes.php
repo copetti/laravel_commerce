@@ -10,12 +10,26 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('category/{category}', function(\CodeCommerce\Category $category){
-	dd($category);
-});
 
-Route::get('product/{product}', function(\CodeCommerce\Product $product){
-	dd($product);
+Route::pattern('id','[0-9]+');
+
+Route::group(['prefix'=>'admin'], function(){
+
+    Route::get('categories', function(\CodeCommerce\Category $category){
+        return $category->all();
+    });
+
+    Route::get('categories/insert','ExemploController@insert');
+    Route::get('categories/update/{id}','ExemploController@update');
+    Route::get('categories/delete/{id}','ExemploController@delete');
+
+    Route::get('products', function(\CodeCommerce\Product $product){
+        return $product->all();
+    });
+
+    Route::get('products/insert','ExemploController@insert');
+    Route::get('products/update/{id}','ExemploController@update');
+    Route::get('products/delete/{id}','ExemploController@delete');
 });
 
 Route::get('/', 'WelcomeController@index');
