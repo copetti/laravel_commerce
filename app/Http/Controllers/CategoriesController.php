@@ -29,7 +29,7 @@ class CategoriesController extends Controller {
 
     }
 
-    public function store(Requests\CategoryResquest $request){
+    public function store(Requests\CategoryRequest $request){
 
         $input = $request->all();
 
@@ -48,7 +48,7 @@ class CategoriesController extends Controller {
 
     }
 
-    public function update(Requests\CategoryResquest $request, $id){
+    public function update(Requests\CategoryRequest $request, $id){
 
         $this->categoryModel->find($id)->update($request->all());
 

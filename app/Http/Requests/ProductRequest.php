@@ -2,7 +2,7 @@
 
 use CodeCommerce\Http\Requests\Request;
 
-class CategoryResquest extends Request {
+class ProductRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -21,10 +21,11 @@ class CategoryResquest extends Request {
 	 */
 	public function rules()
 	{
-		return [
-			'name' => 'required|min:5',
-            'description' => 'required'
-		];
+        return [
+            'name' => 'required|min:5',
+            'description' => 'required',
+            'price' => 'required'
+        ];
 	}
 
 }
