@@ -4,10 +4,10 @@
 
     <div class='container'>
 
-        <h1>Categories</h1>
+        <h1>Products</h1>
 
 
-        <a class="btn btn-default" href="{{ route('products.create') }}">New Category</a>
+        <a class="btn btn-default" href="{{ route('products.create') }}">New Product</a>
         <br>
         <br>
 

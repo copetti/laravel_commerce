@@ -13,7 +13,7 @@
 
 Route::pattern('id','[0-9]+');
 
-//Route::group(['prefix'=>'admin'], function(){
+Route::group(['prefix'=>'admin'], function(){
 
     Route::get('categories',['as'=>'categories', 'uses'=>'CategoriesController@index']);
     Route::get('categories/create',['as'=>'categories.create', 'uses'=>'CategoriesController@create']);
@@ -29,7 +29,7 @@ Route::pattern('id','[0-9]+');
     Route::put('products/{id}/update',['as'=>'products.update', 'uses'=>'ProductsController@update']);
     Route::get('products/{id}/destroy',['as'=>'products.destroy', 'uses'=>'ProductsController@destroy']);
 
-//});
+});
 
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
