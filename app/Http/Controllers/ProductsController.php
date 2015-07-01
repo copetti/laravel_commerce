@@ -95,10 +95,21 @@ class ProductsController extends Controller {
      */
     public function destroy($id){
 
-        $this->productModel->find($id)->delete();
+        $product = $this->productModel->find($id);
+
+        //deleta todas as imagens relacionadas ao produto
+        if($product->images) {
+            foreach ($product->images as $image) {
+                if (file_exists(public_path() . '/uploads/' . $image->id . '.' . $image->extension)) {
+                    Storage::disk('public_local')->delete($image->id . '.' . $image->extension);
+                }
+                $image->delete();
+            }
+        }
+
+        $product->delete();
 
         return redirect()->route('products');
-
     }
 
     /**
