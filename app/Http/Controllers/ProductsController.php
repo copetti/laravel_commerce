@@ -98,7 +98,7 @@ class ProductsController extends Controller {
         $product = $this->productModel->find($id);
 
         //deleta todas as imagens relacionadas ao produto
-        if($product->images) {
+        if(count($product->images)) {
             foreach ($product->images as $image) {
                 if (file_exists(public_path() . '/uploads/' . $image->id . '.' . $image->extension)) {
                     Storage::disk('public_local')->delete($image->id . '.' . $image->extension);
