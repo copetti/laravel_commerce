@@ -10,6 +10,8 @@ class ProductImage extends Model {
 	];
 
     public function product(){
+
         return $this->belongsTo('CodeCommerce\Product');
+
     }
 }

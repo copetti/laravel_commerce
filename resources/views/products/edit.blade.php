@@ -44,6 +44,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('tags','Tags:') !!}
+            {!! Form::textarea('tags',$product->tag_list,['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::submit('Alter Product',['class'=>'btn btn-primary']) !!}
         </div>
 

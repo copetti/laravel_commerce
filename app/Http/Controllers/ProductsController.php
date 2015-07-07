@@ -5,6 +5,7 @@ use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
 use CodeCommerce\Product;
+use CodeCommerce\Tag;
 use CodeCommerce\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -57,6 +58,27 @@ class ProductsController extends Controller {
 
         $product->save();
 
+        $arrTags = explode(',',$input['tags']);
+
+        // retira virgula ou espaços em branco entre virgulas EX Tag A, , Tag B,,,
+        $arrTags = array_filter($arrTags);
+
+        $arrAtc=[];
+        foreach($arrTags as $tg){
+
+            $tag = Tag::where('name', trim($tg))->first();
+
+            //se nao existe cria e depois attacha
+            if($tag===null){
+                $tag = Tag::create(['name' => trim($tg)]);
+            }
+
+            $arrAtc[] = $tag->id;
+        }
+
+        if(count($arrAtc))
+            $product->tags()->attach($arrAtc);
+
         return redirect()->route('products');
     }
 
@@ -82,12 +104,32 @@ class ProductsController extends Controller {
      */
     public function update(Requests\ProductRequest $request, $id){
 
-        $this->productModel->find($id)->update($request->all());
+        $input = $request->all();
+
+        $product = $this->productModel->find($id);
+
+        $product->update($request->all());
+
+        $arrTags = explode(',',$input['tags']);
+
+        // retira virgula ou espaços em branco entre virgulas EX Tag A, , Tag B,,,
+        $arrTags = array_filter($arrTags);
+
+        $arrSync=[];
+        foreach($arrTags as $tg){
+
+            $tag = Tag::where('name', trim($tg))->first();
+            //se nao existe cria e depois synca
+            if($tag===null){
+                $tag = Tag::create(['name' => trim($tg)]);
+            }
+            $arrSync[] = $tag->id;
+        }
+
+        $product->tags()->sync($arrSync);
 
         return redirect()->route('products');
-
     }
-
     /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -106,6 +148,9 @@ class ProductsController extends Controller {
                 $image->delete();
             }
         }
+
+        //remove as tags do produto
+        $product->tags()->detach();
 
         $product->delete();
 
