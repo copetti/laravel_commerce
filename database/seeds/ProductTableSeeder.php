@@ -9,7 +9,9 @@ class ProductTableSeeder extends Seeder{
 
     public function run(){
 
-        //DB::table('products')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        DB::table('products')->truncate();
 
         $faker = Faker::create();
 
@@ -24,6 +26,7 @@ class ProductTableSeeder extends Seeder{
             ]);
         }
 
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }
 }

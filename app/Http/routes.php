@@ -46,7 +46,10 @@ Route::group(['prefix'=>'admin'], function(){
     });
 });
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'StoreController@index');
+Route::get('category/{id}',['as'=>'store.category', 'uses'=>'StoreController@category']);
+Route::get('product/{id}',['as'=>'store.product', 'uses'=>'StoreController@product']);
+
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
